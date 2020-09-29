@@ -20,7 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bc0ba89-74ad-4dfd-b049-023ffacd430d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/fetchFile.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reader/core_types.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reader/fetch_file_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reader/testpage.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetchFile.go" beforeDir="false" afterPath="$PROJECT_DIR$/reader/fetch_file.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +36,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Go File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -45,8 +51,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="HTML" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -55,20 +66,72 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="go.sdk" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
-  <component name="RunManager">
-    <configuration name="go build fetchFile.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/files" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Test.fetch_file_test.go (1)">
+    <configuration name="go build fetch_file.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="qei" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/fetchFile.go" />
+      <filePath value="$PROJECT_DIR$/reader/fetch_file.go" />
       <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test_fetchPage in github.com/chynnaevans/qei/reader" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="qei" />
+      <working_directory value="$PROJECT_DIR$/reader" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/chynnaevans/qei/reader" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTest_fetchPage\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test_fetchPage_error in github.com/chynnaevans/qei/reader" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="qei" />
+      <working_directory value="$PROJECT_DIR$/reader" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/chynnaevans/qei/reader" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTest_fetchPage_error\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test_fetchPage_working in github.com/chynnaevans/qei/reader" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="qei" />
+      <working_directory value="$PROJECT_DIR$/reader" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/chynnaevans/qei/reader" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTest_fetchPage_working\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="fetch_file_test.go (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="qei" />
+      <working_directory value="$PROJECT_DIR$/reader" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/reader/fetch_file_test.go" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build fetchFile.go" />
+        <item itemvalue="Go Test.fetch_file_test.go (1)" />
+        <item itemvalue="Go Test.Test_fetchPage_error in github.com/chynnaevans/qei/reader" />
+        <item itemvalue="Go Test.Test_fetchPage_working in github.com/chynnaevans/qei/reader" />
+        <item itemvalue="Go Test.Test_fetchPage in github.com/chynnaevans/qei/reader" />
+        <item itemvalue="Go Build.go build fetch_file.go" />
       </list>
     </recent_temporary>
   </component>
@@ -96,31 +159,49 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
     <state x="2760" y="657" key="#GOROOT" timestamp="1601398358111">
       <screen x="1680" y="0" width="2560" height="1440" />
     </state>
     <state x="2760" y="657" key="#GOROOT/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601398358111" />
-    <state width="2518" height="424" key="GridCell.Tab.0.bottom" timestamp="1601401509117">
+    <state x="100" y="100" width="1480" height="850" key="DiffContextDialog" timestamp="1601408205859">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="100" y="100" width="1480" height="850" key="DiffContextDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1601408205859" />
+    <state width="1638" height="424" key="GridCell.Tab.0.bottom" timestamp="1601411727618">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="424" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727618" />
+    <state width="2518" height="424" key="GridCell.Tab.0.bottom/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601406257770" />
+    <state width="1638" height="424" key="GridCell.Tab.0.center" timestamp="1601411727617">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="424" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727617" />
+    <state width="2518" height="424" key="GridCell.Tab.0.center/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601406257768" />
+    <state width="1638" height="424" key="GridCell.Tab.0.left" timestamp="1601411727616">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="424" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727616" />
+    <state width="2518" height="424" key="GridCell.Tab.0.left/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601406257767" />
+    <state width="1638" height="424" key="GridCell.Tab.0.right" timestamp="1601411727617">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="424" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727617" />
+    <state width="2518" height="424" key="GridCell.Tab.0.right/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601406257769" />
+    <state x="2469" y="359" key="SettingsEditor" timestamp="1601405312139">
       <screen x="1680" y="0" width="2560" height="1440" />
     </state>
-    <state width="2518" height="424" key="GridCell.Tab.0.bottom/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601401509117" />
-    <state width="2518" height="424" key="GridCell.Tab.0.center" timestamp="1601401509115">
-      <screen x="1680" y="0" width="2560" height="1440" />
-    </state>
-    <state width="2518" height="424" key="GridCell.Tab.0.center/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601401509115" />
-    <state width="2518" height="424" key="GridCell.Tab.0.left" timestamp="1601401509114">
-      <screen x="1680" y="0" width="2560" height="1440" />
-    </state>
-    <state width="2518" height="424" key="GridCell.Tab.0.left/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601401509114" />
-    <state width="2518" height="424" key="GridCell.Tab.0.right" timestamp="1601401509116">
-      <screen x="1680" y="0" width="2560" height="1440" />
-    </state>
-    <state width="2518" height="424" key="GridCell.Tab.0.right/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601401509116" />
-    <state x="2469" y="359" key="SettingsEditor" timestamp="1601397611805">
-      <screen x="1680" y="0" width="2560" height="1440" />
-    </state>
-    <state x="2469" y="359" key="SettingsEditor/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601397611805" />
+    <state x="2469" y="359" key="SettingsEditor/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601405312139" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/qei$fetch_file_test_go.out" NAME="fetch_file_test.go Coverage Results" MODIFIED="1601404304273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/qei$Test_fetchPage_in_github_com_chynnaevans_qei_reader.out" NAME="Test_fetchPage in github.com/chynnaevans/qei/reader Coverage Results" MODIFIED="1601405475652" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/qei$Test_fetchPage_working_in_github_com_chynnaevans_qei_reader.out" NAME="Test_fetchPage_working in github.com/chynnaevans/qei/reader Coverage Results" MODIFIED="1601410567949" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/qei$fetch_file_test_go__1_.out" NAME="fetch_file_test.go (1) Coverage Results" MODIFIED="1601411727527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
