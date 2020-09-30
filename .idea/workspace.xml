@@ -20,12 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bc0ba89-74ad-4dfd-b049-023ffacd430d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reader/core_types.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reader/fetch_file_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reader/testpage.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetchFile.go" beforeDir="false" afterPath="$PROJECT_DIR$/reader/fetch_file.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qei" beforeDir="false" afterPath="$PROJECT_DIR$/qei" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader/fetch_file.go" beforeDir="false" afterPath="$PROJECT_DIR$/reader/fetch_file.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader/fetch_file_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/reader/fetch_file_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +65,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="go.vgo" />
+    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -74,7 +73,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.fetch_file_test.go (1)">
+  <component name="RunManager" selected="Go Test.go test github.com/chynnaevans/qei/reader">
     <configuration name="go build fetch_file.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="qei" />
       <working_directory value="$PROJECT_DIR$" />
@@ -83,7 +82,7 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
-    <configuration name="Test_fetchPage in github.com/chynnaevans/qei/reader" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="Test_Reader in github.com/chynnaevans/qei/reader" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="qei" />
       <working_directory value="$PROJECT_DIR$/reader" />
       <framework value="gotest" />
@@ -91,10 +90,10 @@
       <package value="github.com/chynnaevans/qei/reader" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTest_fetchPage\E$" />
+      <pattern value="^\QTest_Reader\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="Test_fetchPage_error in github.com/chynnaevans/qei/reader" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="Test_fetchPage_errors in github.com/chynnaevans/qei/reader" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="qei" />
       <working_directory value="$PROJECT_DIR$/reader" />
       <framework value="gotest" />
@@ -102,7 +101,7 @@
       <package value="github.com/chynnaevans/qei/reader" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTest_fetchPage_error\E$" />
+      <pattern value="^\QTest_fetchPage_errors\E$" />
       <method v="2" />
     </configuration>
     <configuration name="Test_fetchPage_working in github.com/chynnaevans/qei/reader" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -116,21 +115,22 @@
       <pattern value="^\QTest_fetchPage_working\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="fetch_file_test.go (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="go test github.com/chynnaevans/qei/reader" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="qei" />
       <working_directory value="$PROJECT_DIR$/reader" />
       <framework value="gotest" />
-      <kind value="FILE" />
+      <kind value="PACKAGE" />
+      <package value="github.com/chynnaevans/qei/reader" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/reader/fetch_file_test.go" />
+      <filePath value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.fetch_file_test.go (1)" />
-        <item itemvalue="Go Test.Test_fetchPage_error in github.com/chynnaevans/qei/reader" />
+        <item itemvalue="Go Test.go test github.com/chynnaevans/qei/reader" />
+        <item itemvalue="Go Test.Test_fetchPage_errors in github.com/chynnaevans/qei/reader" />
+        <item itemvalue="Go Test.Test_Reader in github.com/chynnaevans/qei/reader" />
         <item itemvalue="Go Test.Test_fetchPage_working in github.com/chynnaevans/qei/reader" />
-        <item itemvalue="Go Test.Test_fetchPage in github.com/chynnaevans/qei/reader" />
         <item itemvalue="Go Build.go build fetch_file.go" />
       </list>
     </recent_temporary>
@@ -173,35 +173,40 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="100" y="100" width="1480" height="850" key="DiffContextDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1601408205859" />
-    <state width="1638" height="424" key="GridCell.Tab.0.bottom" timestamp="1601411727618">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state width="1638" height="424" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727618" />
-    <state width="2518" height="424" key="GridCell.Tab.0.bottom/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601406257770" />
-    <state width="1638" height="424" key="GridCell.Tab.0.center" timestamp="1601411727617">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state width="1638" height="424" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727617" />
-    <state width="2518" height="424" key="GridCell.Tab.0.center/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601406257768" />
-    <state width="1638" height="424" key="GridCell.Tab.0.left" timestamp="1601411727616">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state width="1638" height="424" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727616" />
-    <state width="2518" height="424" key="GridCell.Tab.0.left/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601406257767" />
-    <state width="1638" height="424" key="GridCell.Tab.0.right" timestamp="1601411727617">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state width="1638" height="424" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727617" />
-    <state width="2518" height="424" key="GridCell.Tab.0.right/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601406257769" />
-    <state x="2469" y="359" key="SettingsEditor" timestamp="1601405312139">
+    <state width="2518" height="424" key="GridCell.Tab.0.bottom" timestamp="1601483308904">
       <screen x="1680" y="0" width="2560" height="1440" />
     </state>
-    <state x="2469" y="359" key="SettingsEditor/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601405312139" />
+    <state width="1638" height="424" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727618" />
+    <state width="2518" height="424" key="GridCell.Tab.0.bottom/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601483308904" />
+    <state width="2518" height="424" key="GridCell.Tab.0.bottom/1680.23.2560.1417/0.23.1680.1027@1680.23.2560.1417" timestamp="1601480863048" />
+    <state width="2518" height="424" key="GridCell.Tab.0.center" timestamp="1601483308903">
+      <screen x="1680" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1638" height="424" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727617" />
+    <state width="2518" height="424" key="GridCell.Tab.0.center/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601483308903" />
+    <state width="2518" height="424" key="GridCell.Tab.0.center/1680.23.2560.1417/0.23.1680.1027@1680.23.2560.1417" timestamp="1601480863046" />
+    <state width="2518" height="424" key="GridCell.Tab.0.left" timestamp="1601483308902">
+      <screen x="1680" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1638" height="424" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727616" />
+    <state width="2518" height="424" key="GridCell.Tab.0.left/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601483308902" />
+    <state width="2518" height="424" key="GridCell.Tab.0.left/1680.23.2560.1417/0.23.1680.1027@1680.23.2560.1417" timestamp="1601480863046" />
+    <state width="2518" height="424" key="GridCell.Tab.0.right" timestamp="1601483308903">
+      <screen x="1680" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1638" height="424" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1601411727617" />
+    <state width="2518" height="424" key="GridCell.Tab.0.right/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601483308903" />
+    <state width="2518" height="424" key="GridCell.Tab.0.right/1680.23.2560.1417/0.23.1680.1027@1680.23.2560.1417" timestamp="1601480863047" />
+    <state x="2469" y="359" key="SettingsEditor" timestamp="1601477424263">
+      <screen x="1680" y="0" width="2560" height="1440" />
+    </state>
+    <state x="2469" y="359" key="SettingsEditor/1680.0.2560.1440/0.0.1680.1050@1680.0.2560.1440" timestamp="1601477424263" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/qei$go_test_github_com_chynnaevans_qei_reader.out" NAME="go test github.com/chynnaevans/qei/reader Coverage Results" MODIFIED="1601481854982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/qei$fetch_file_test_go.out" NAME="fetch_file_test.go Coverage Results" MODIFIED="1601404304273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/qei$Test_fetchPage_in_github_com_chynnaevans_qei_reader.out" NAME="Test_fetchPage in github.com/chynnaevans/qei/reader Coverage Results" MODIFIED="1601405475652" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/qei$Test_fetchPage_working_in_github_com_chynnaevans_qei_reader.out" NAME="Test_fetchPage_working in github.com/chynnaevans/qei/reader Coverage Results" MODIFIED="1601410567949" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/qei$fetch_file_test_go__1_.out" NAME="fetch_file_test.go (1) Coverage Results" MODIFIED="1601411727527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/qei$fetch_file_test_go__1_.out" NAME="fetch_file_test.go (1) Coverage Results" MODIFIED="1601478787449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
