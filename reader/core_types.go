@@ -1,7 +1,5 @@
 package reader
 
-import "time"
-
 type CaseMeta struct {
 	caseNum string
 	title string
@@ -9,8 +7,8 @@ type CaseMeta struct {
 	originCity string
 	currentCity string
 	proceedingType string
-	dateFiled time.Time
-	nextListing time.Time
+	dateFiled string
+	nextListing string
 }
 
 type Party struct {
