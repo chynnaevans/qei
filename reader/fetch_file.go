@@ -39,7 +39,6 @@ func extractData(tokenizer *html.Tokenizer) (caseMeta CaseMeta, files []Document
 	for {
 		tt := tokenizer.Next()
 
-		//TODO: implement docs
 		switch {
 		case tt == html.ErrorToken:
 			return
@@ -81,11 +80,6 @@ func extractData(tokenizer *html.Tokenizer) (caseMeta CaseMeta, files []Document
 			}
 
 		}
-
-		//TODO: implement docs
-		//if isMetaComplete(caseMeta) {
-		//	return
-		//}
 	}
 	return
 }
