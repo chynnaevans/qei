@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"time"
 )
 
 func Reader(url string) (err error) {
@@ -80,6 +81,7 @@ func StepReader(url string) {
 
 func extractData(tokenizer *html.Tokenizer) (caseMeta CaseMeta, files []Document) {
 	currTag := ""
+	timeLayout := "02/01/2006"
 	for {
 		tt := tokenizer.Next()
 
@@ -112,9 +114,17 @@ func extractData(tokenizer *html.Tokenizer) (caseMeta CaseMeta, files []Document
 		case tt == html.TextToken && currTag == metaFieldName("proceedingtype"):
 			caseMeta.proceedingType = tokenizer.Token().Data
 		case tt == html.TextToken && currTag == metaFieldName("datefiled"):
-			caseMeta.dateFiled = tokenizer.Token().Data
+			if filedTime, err := time.Parse(timeLayout, tokenizer.Token().Data); err != nil {
+				continue
+			} else {
+				caseMeta.dateFiled = filedTime
+			}
 		case tt == html.TextToken && currTag == metaFieldName("bookingdate"):
-			caseMeta.nextListing = tokenizer.Token().Data
+			if nextTime, err := time.Parse(timeLayout, tokenizer.Token().Data); err != nil {
+				continue
+			} else {
+				caseMeta.nextListing = nextTime
+			}
 
 		}
 
@@ -128,9 +138,8 @@ func extractData(tokenizer *html.Tokenizer) (caseMeta CaseMeta, files []Document
 
 func readDocs(tokenizer *html.Tokenizer, caseMeta CaseMeta) (docs []Document) {
 	for {
-		//if tokenizer.Token().Data == "table" {
-		//	fmt.Println("yeet")
-		//}
+		timeLayout := "02/01/2006"
+
 		tt := tokenizer.Next()
 		t := tokenizer.Token()
 
@@ -157,7 +166,11 @@ func readDocs(tokenizer *html.Tokenizer, caseMeta CaseMeta) (docs []Document) {
 				case tt == html.TextToken && fieldCount == 6:
 					fieldCount--
 				case tt == html.TextToken && fieldCount == 5:
-					doc.dateFiled = t.Data
+					if filedTime, err := time.Parse(timeLayout, t.Data); err != nil {
+						continue
+					} else {
+						doc.dateFiled = filedTime
+					}
 					fieldCount--
 				case tt == html.TextToken && fieldCount == 4:
 					doc.docType = t.Data
@@ -202,29 +215,6 @@ func readDocs(tokenizer *html.Tokenizer, caseMeta CaseMeta) (docs []Document) {
 
 	}
 	return
-}
-
-func isMetaComplete(caseMeta CaseMeta) bool {
-	switch {
-	case caseMeta.caseNum == "":
-		return false
-	case caseMeta.title == "":
-		return false
-	case caseMeta.nextListing == "":
-		return false
-	case caseMeta.dateFiled == "":
-		return false
-	case caseMeta.proceedingType == "":
-		return false
-	case caseMeta.currentCity == "":
-		return false
-	case caseMeta.originCity == "":
-		return false
-	case caseMeta.court == "":
-		return false
-	default:
-		return true
-	}
 }
 
 func getTokenField(token html.Token, field string) (value string) {
