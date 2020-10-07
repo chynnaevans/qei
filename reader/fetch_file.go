@@ -3,21 +3,20 @@ package reader
 import (
 	"fmt"
 	"golang.org/x/net/html"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"regexp"
-	"strings"
 	"time"
 )
 
-func StepReader(url string) {
+func StepReader(url string) (docs []Document) {
 	urlPattern := `^http:\/\/apps\.courts\.qld\.gov\.au\/esearching\/FileDetails\.aspx\?Location=[A-Z]{5}&Court=[A-Z]{5}&Filenumber=[0-9]+\/[0-9]+$`
 	if matches, _ := regexp.MatchString(urlPattern, url); !matches {
-		//err := errors.New("cannot read invalid url")
+		log.Println("cannot read invalid url")
 		return
 	}
-
 	resp, err := http.Get(url)
-
 	//TODO: can I test this?
 	if err != nil {
 		fmt.Printf("error fetching webpage: %v", err)
@@ -25,12 +24,15 @@ func StepReader(url string) {
 	}
 
 	tokenizer := html.NewTokenizer(resp.Body)
-	//TODO: add test for error here
 
 	meta, files := extractData(tokenizer)
 	resp.Body.Close()
+
+	//TODO: delete print statements
 	fmt.Println(meta)
-	fmt.Println(files)
+	fmt.Println(len(files))
+
+	return files
 }
 
 func extractData(tokenizer *html.Tokenizer) (caseMeta CaseMeta, files []Document) {
@@ -81,7 +83,6 @@ func extractData(tokenizer *html.Tokenizer) (caseMeta CaseMeta, files []Document
 
 		}
 	}
-	return
 }
 
 func readDocs(tokenizer *html.Tokenizer, caseMeta CaseMeta) (docs []Document) {
@@ -117,17 +118,17 @@ func readDocs(tokenizer *html.Tokenizer, caseMeta CaseMeta) (docs []Document) {
 					if filedTime, err := time.Parse(timeLayout, t.Data); err != nil {
 						continue
 					} else {
-						doc.dateFiled = filedTime
+						doc.DateFiled = filedTime
 					}
 					fieldCount--
 				case tt == html.TextToken && fieldCount == 4:
-					doc.docType = t.Data
+					doc.DocType = t.Data
 					fieldCount--
 				case tt == html.TextToken && fieldCount == 3:
-					doc.docDesc = t.Data
+					doc.DocDesc = t.Data
 					fieldCount--
 				case tt == html.TextToken && fieldCount == 2:
-					doc.filer = t.Data
+					doc.Filer = t.Data
 					fieldCount--
 				case tt == html.StartTagToken && fieldCount == 1:
 					fieldCount--
@@ -142,27 +143,29 @@ func readDocs(tokenizer *html.Tokenizer, caseMeta CaseMeta) (docs []Document) {
 						continue
 					}
 
-					doc.docUrl = getTokenField(t, "href")
-					pattern, err := regexp.Compile(`edocsno\=([0-9]+)`)
-					if err != nil || doc.docUrl == "" {
+					docUrl := getTokenField(t, "href")
+					doc.DocUrl = generateDocUrl(docUrl)
+					pattern, err := regexp.Compile(`edocsno=([0-9]+)`)
+					if err != nil || doc.DocUrl == "" {
 						continue
 					}
-					if docNum := pattern.FindStringSubmatch(doc.docUrl); len(docNum) >= 1 {
-						doc.eDocNum = docNum[1]
+					if docNum := pattern.FindStringSubmatch(doc.DocUrl); len(docNum) >= 1 {
+						doc.EDocNum = docNum[1]
 					}
 
 				}
 
 				if fieldCount == 0 {
-					doc.caseNum = caseMeta.caseNum
-					docs = append(docs, doc)
+					if doc.EDocNum != "" {
+						doc.CaseNum = caseMeta.caseNum
+						docs = append(docs, doc)
+					}
 					break
 				}
 			}
 		}
 
 	}
-	return
 }
 
 func getTokenField(token html.Token, field string) (value string) {
@@ -180,6 +183,26 @@ func metaFieldName(name string) (fullName string) {
 }
 
 // Check if page has court docs
-func isValidPage(body string) bool {
-	return strings.Contains(body, "edocsno")
+func pageHasDocs(body []byte) bool {
+	hasDoc, err := regexp.Match("edocsno", body)
+	if err != nil {
+		log.Println("error checking if page has docs")
+	}
+	return hasDoc
+}
+
+// Check if page exists
+func fileExists(resp http.Response) bool {
+	body, err := ioutil.ReadAll(resp.Body)
+	invalidFile, err := regexp.Match("No such file found", body)
+	if err != nil {
+		fmt.Println("error checking page validity has docs")
+	}
+
+	return !invalidFile
+}
+
+// Generate doc URL
+func generateDocUrl(suffix string) string {
+	return "http://apps.courts.qld.gov.au/esearching/" + suffix
 }

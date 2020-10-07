@@ -24,12 +24,12 @@ type Party struct {
 }
 
 type Document struct {
-	caseNum string
-	dateFiled time.Time
-	docType string
-	docDesc string
-	filer string
-	pages int
-	eDocNum string
-	docUrl string
+	CaseNum string
+	DateFiled time.Time
+	DocType string
+	DocDesc string
+	Filer string
+	Pages int
+	EDocNum string
+	DocUrl string
 }
