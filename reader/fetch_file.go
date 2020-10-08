@@ -1,12 +1,13 @@
 package reader
 
 import (
-	"fmt"
+	"context"
 	"golang.org/x/net/html"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"regexp"
+	"strconv"
 	"time"
 )
 
@@ -19,18 +20,18 @@ func StepReader(url string) (docs []Document) {
 	resp, err := http.Get(url)
 	//TODO: can I test this?
 	if err != nil {
-		fmt.Printf("error fetching webpage: %v", err)
+		log.Printf("error fetching webpage: %v", err)
 		return
 	}
-
+	//TODO: can I do a regex on the bytes here instead of casting as str? 
 	tokenizer := html.NewTokenizer(resp.Body)
 
-	meta, files := extractData(tokenizer)
+	_, files := extractData(tokenizer)
 	resp.Body.Close()
 
 	//TODO: delete print statements
-	fmt.Println(meta)
-	fmt.Println(len(files))
+	//fmt.Println(meta)
+	//fmt.Println(len(files))
 
 	return files
 }
@@ -182,6 +183,85 @@ func metaFieldName(name string) (fullName string) {
 	return "ctl00_ContentPlaceHolder1_" + name
 }
 
+// Generate doc URL
+func generateDocUrl(suffix string) string {
+	return "http://apps.courts.qld.gov.au/esearching/" + suffix
+}
+
+func IsValidPage(url string) (isValid bool, isFinished bool) {	urlPattern := `^http:\/\/apps\.courts\.qld\.gov\.au\/esearching\/FileDetails\.aspx\?Location=[A-Z]{5}&Court=[A-Z]{5}&Filenumber=[0-9]+\/[0-9]+$`
+	isValid = false
+	isFinished = false
+	if matches, _ := regexp.MatchString(urlPattern, url); !matches {
+		log.Println("cannot read invalid url")
+		return
+	}
+	resp, err := http.Get(url)
+	body, err := ioutil.ReadAll(resp.Body)
+
+	//TODO: can I test this?
+	if err != nil {
+		log.Printf("error fetching webpage in verification: %v", err)
+		return
+	}
+
+	if match, _ := regexp.Match("No such file found", body); match {
+		isFinished = true
+	} else if match, _ := regexp.Match("edocsno", body); match {
+		isValid = true
+	}
+
+	resp.Body.Close()
+	return
+}
+
+func EvaluatePages(docNumber int, year string, docs chan Document) {
+	validCounter := 0
+	base := `http://apps.courts.qld.gov.au/esearching/FileDetails.aspx?Location=BRISB&Court=SUPRE&Filenumber=`
+	invalidCount := 0
+	for ; docNumber < 14000; docNumber++ {
+		if isValid, isFinished := IsValidPage(base + strconv.Itoa(docNumber) + `/` + year); isValid {
+			validCounter++
+			invalidCount = 0
+
+			fileDocs := StepReader(base + strconv.Itoa(docNumber) + `/` + year)
+			for _, doc := range fileDocs {
+				docs <- doc
+			}
+
+		} else if isFinished && invalidCount < 10 {
+			invalidCount++
+		} else if isFinished && invalidCount >= 10 {
+			log.Printf("Found end of doc, %d scanned & %d found", docNumber, validCounter)
+			break
+		} else if docNumber % 200 == 0 {
+			log.Printf("Docs scanned: %d", docNumber)
+		}
+	}
+
+	close(docs)
+	return
+}
+
+func ScanYear(year string){
+	var docBatch []Document
+	docs := make(chan Document)
+	ctx := context.Background()
+	client := InitApp(ctx)
+	go EvaluatePages(0, year, docs)
+
+	for doc := range docs {
+		if len(docBatch) < 500 {
+			docBatch = append(docBatch, doc)
+		} else {
+			WriteBulkDocs(ctx, client, docBatch)
+			docBatch = []Document{}
+		}
+	}
+
+	WriteBulkDocs(ctx, client, docBatch)
+}
+
+//TODO: delete - graveyard
 // Check if page has court docs
 func pageHasDocs(body []byte) bool {
 	hasDoc, err := regexp.Match("edocsno", body)
@@ -196,13 +276,8 @@ func fileExists(resp http.Response) bool {
 	body, err := ioutil.ReadAll(resp.Body)
 	invalidFile, err := regexp.Match("No such file found", body)
 	if err != nil {
-		fmt.Println("error checking page validity has docs")
+		log.Println("error checking page validity has docs")
 	}
 
 	return !invalidFile
-}
-
-// Generate doc URL
-func generateDocUrl(suffix string) string {
-	return "http://apps.courts.qld.gov.au/esearching/" + suffix
 }

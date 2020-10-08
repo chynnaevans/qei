@@ -48,4 +48,5 @@ func WriteBulkDocs(ctx context.Context, client *firestore.Client, docs []Documen
 	if err != nil {
 		log.Printf("error committing batch document writes: %s", err)
 	}
+	log.Printf("%d docs written to firestore", len(docs))
 }
