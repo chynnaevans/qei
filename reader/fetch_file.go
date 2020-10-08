@@ -11,6 +11,26 @@ import (
 	"time"
 )
 
+func ScanYear(startDoc int, year string){
+	var docBatch []Document
+	docs := make(chan Document)
+	ctx := context.Background()
+	client := InitApp(ctx)
+	//TODO: change back doc number
+	go EvaluatePages(startDoc, year, docs)
+
+	for doc := range docs {
+		if len(docBatch) < 500 {
+			docBatch = append(docBatch, doc)
+		} else {
+			WriteBulkDocs(ctx, client, docBatch)
+			docBatch = []Document{}
+		}
+	}
+
+	WriteBulkDocs(ctx, client, docBatch)
+}
+
 func StepReader(url string) (docs []Document) {
 	urlPattern := `^http:\/\/apps\.courts\.qld\.gov\.au\/esearching\/FileDetails\.aspx\?Location=[A-Z]{5}&Court=[A-Z]{5}&Filenumber=[0-9]+\/[0-9]+$`
 	if matches, _ := regexp.MatchString(urlPattern, url); !matches {
@@ -228,9 +248,9 @@ func EvaluatePages(docNumber int, year string, docs chan Document) {
 				docs <- doc
 			}
 
-		} else if isFinished && invalidCount < 10 {
+		} else if isFinished && invalidCount < 30 {
 			invalidCount++
-		} else if isFinished && invalidCount >= 10 {
+		} else if isFinished && invalidCount >= 30 {
 			log.Printf("Found end of doc, %d scanned & %d found", docNumber, validCounter)
 			break
 		} else if docNumber % 200 == 0 {
@@ -240,44 +260,4 @@ func EvaluatePages(docNumber int, year string, docs chan Document) {
 
 	close(docs)
 	return
-}
-
-func ScanYear(year string){
-	var docBatch []Document
-	docs := make(chan Document)
-	ctx := context.Background()
-	client := InitApp(ctx)
-	go EvaluatePages(0, year, docs)
-
-	for doc := range docs {
-		if len(docBatch) < 500 {
-			docBatch = append(docBatch, doc)
-		} else {
-			WriteBulkDocs(ctx, client, docBatch)
-			docBatch = []Document{}
-		}
-	}
-
-	WriteBulkDocs(ctx, client, docBatch)
-}
-
-//TODO: delete - graveyard
-// Check if page has court docs
-func pageHasDocs(body []byte) bool {
-	hasDoc, err := regexp.Match("edocsno", body)
-	if err != nil {
-		log.Println("error checking if page has docs")
-	}
-	return hasDoc
-}
-
-// Check if page exists
-func fileExists(resp http.Response) bool {
-	body, err := ioutil.ReadAll(resp.Body)
-	invalidFile, err := regexp.Match("No such file found", body)
-	if err != nil {
-		log.Println("error checking page validity has docs")
-	}
-
-	return !invalidFile
 }
