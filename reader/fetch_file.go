@@ -216,6 +216,10 @@ func IsValidPage(url string) (isValid bool, isFinished bool) {	urlPattern := `^h
 		return
 	}
 	resp, err := http.Get(url)
+	if err != nil {
+		log.Printf("error fetching url %v", err,)
+		return
+	}
 	body, err := ioutil.ReadAll(resp.Body)
 
 	//TODO: can I test this?
@@ -238,7 +242,7 @@ func EvaluatePages(docNumber int, year string, docs chan Document) {
 	validCounter := 0
 	base := `http://apps.courts.qld.gov.au/esearching/FileDetails.aspx?Location=BRISB&Court=SUPRE&Filenumber=`
 	invalidCount := 0
-	for ; docNumber < 14000; docNumber++ {
+	for ;;docNumber++ {
 		if isValid, isFinished := IsValidPage(base + strconv.Itoa(docNumber) + `/` + year); isValid {
 			validCounter++
 			invalidCount = 0
