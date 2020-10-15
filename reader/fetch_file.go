@@ -252,9 +252,9 @@ func EvaluatePages(docNumber int, year string, docs chan Document) {
 				docs <- doc
 			}
 
-		} else if isFinished && invalidCount < 30 {
+		} else if isFinished && invalidCount < 100 {
 			invalidCount++
-		} else if isFinished && invalidCount >= 30 {
+		} else if isFinished && invalidCount >= 100 {
 			log.Printf("Found end of doc, %d scanned & %d found", docNumber, validCounter)
 			break
 		} else if docNumber % 200 == 0 {
